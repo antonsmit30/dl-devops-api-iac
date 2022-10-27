@@ -30,7 +30,7 @@ resource "aws_ecs_service" "dl-devops-api" {
   name            = "dl-devops-api"
   cluster         = aws_ecs_cluster.dl-cluster.id
   task_definition = data.aws_ecs_task_definition.dl-service.arn != "" ? data.aws_ecs_task_definition.dl-service.arn : aws_ecs_task_definition.dl-service.arn
-  desired_count   = 1
+  desired_count   = 2
   iam_role        = aws_iam_role.dl-devops-api-role.arn
   depends_on      = [aws_iam_role.dl-devops-api-role]
 
@@ -148,11 +148,11 @@ resource "aws_lb_target_group" "dl-alb-tg" {
 # Autoscaling group
 resource "aws_autoscaling_group" "dl-asg" {
   name                      = "dl-asg"
-  max_size                  = 1
+  max_size                  = 2
   min_size                  = 1
   health_check_grace_period = 300
   health_check_type         = "ELB"
-  desired_capacity          = 1
+  desired_capacity          = 2
   force_delete              = true
   launch_configuration      = aws_launch_configuration.dl-asg-lc.name
   vpc_zone_identifier       = [for s in data.aws_subnet.dl-subnet : s.id]
