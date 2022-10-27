@@ -2,6 +2,7 @@
 **/.terraform/*
 
 files/lambda_zip_inline.zip
+.terraform*
 
 # .tfstate files
 *.tfstate
