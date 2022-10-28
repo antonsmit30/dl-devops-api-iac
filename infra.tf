@@ -142,6 +142,7 @@ resource "aws_lb_target_group" "dl-alb-tg" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = data.aws_vpcs.main-vpc.ids[0]
+
 }
 
 
@@ -156,6 +157,7 @@ resource "aws_autoscaling_group" "dl-asg" {
   force_delete              = true
   launch_configuration      = aws_launch_configuration.dl-asg-lc.name
   vpc_zone_identifier       = [for s in data.aws_subnet.dl-subnet : s.id]
+  #target_group_arns         = [aws_lb_target_group.dl-alb-tg.arn]
 
 
   timeouts {
