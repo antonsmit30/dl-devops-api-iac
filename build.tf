@@ -112,7 +112,7 @@ resource "aws_iam_role_policy" "dl-build-service-policy" {
         {
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:ssm:eu-west-1:386659630225*"
+                "arn:aws:ssm:eu-west-1:${data.aws_caller_identity.current.account_id}*"
             ],
             "Action": [
                 "ssm:*"

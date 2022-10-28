@@ -66,3 +66,11 @@ data "aws_ecs_task_definition" "dl-service" {
 output "dl-service" {
   value = data.aws_ecs_task_definition.dl-service
 }
+
+data "aws_codestarconnections_connection" "dl-codestar-connection" {
+  name = "my-github-connection"
+}
+
+output "codestar_details" {
+  value = data.aws_codestarconnections_connection.dl-codestar-connection.id
+}

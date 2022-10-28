@@ -22,7 +22,7 @@ resource "aws_codepipeline" "dl-pipeline" {
       output_artifacts = ["SourceArtifact"]
 
       configuration = {
-        ConnectionArn        = "arn:aws:codestar-connections:eu-west-1:386659630225:connection/c7881264-27dd-44fc-b74c-1bdbbe79e53a"
+        ConnectionArn        = data.aws_codestarconnections_connection.dl-codestar-connection.id
         FullRepositoryId     = "antonsmit30/dl-devops-api"
         BranchName           = "development"
         OutputArtifactFormat = "CODE_ZIP"
@@ -139,7 +139,7 @@ resource "aws_iam_role_policy" "dl-pipeline-role-policy" {
       "Action": [
         "codestar-connections:UseConnection"
       ],
-      "Resource": "arn:aws:codestar-connections:eu-west-1:386659630225:connection/c7881264-27dd-44fc-b74c-1bdbbe79e53a"
+      "Resource": "${data.aws_codestarconnections_connection.dl-codestar-connection.id}"
     },
     {
       "Effect": "Allow",
